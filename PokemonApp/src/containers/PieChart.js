@@ -39,7 +39,7 @@ componentDidMount() {
    let legendList=[]  ;
    let dataset= [] ;
    let dataSet = {};
-
+   //get pokemons array from pokemon details to display stats 
    let stats=this.props.pokemon.stats;
    stats.forEach(item=>{
       legendList.push(item.stat.name) ;

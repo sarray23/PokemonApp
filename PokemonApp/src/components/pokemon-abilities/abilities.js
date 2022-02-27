@@ -1,3 +1,4 @@
+//list of abilities 
 import React, {useEffect} from 'react';
 import {View, Text, FlatList, TouchableHighlight} from 'react-native'
 import { getRgbaColor,getRandomColor } from "../../utils";

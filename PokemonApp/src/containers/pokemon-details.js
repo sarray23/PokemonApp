@@ -10,6 +10,7 @@ import styles from "./styles/pokemon-details";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 const PokemonDetails = ({navigation, route}) => {
+//get params sent from navigation
 const pokemon = route.params.pokemon;
 const index = route.params.index;
 const bgColor = route.params.bgColor;
@@ -17,11 +18,11 @@ const screenWidth = Math.round(Dimensions.get('window').width);
 const [modalVisible, setModalVisible] = useState(false);
 const [selectedStartDate, setSelectedStartDate] = useState(null);
   
-//display pokemon types 
+//display pokemon types by returning types component
 const display_types = (pokemon) => {
   return <Types types={pokemon.types}/>
 }
-//display pokemon abilities 
+//display pokemon abilities by returning abilities component
 const display_abilities=(pokemon)=>{
   return <Abilities abilities={pokemon.abilities}/>
 }

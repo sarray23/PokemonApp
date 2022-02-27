@@ -31,7 +31,7 @@ const setDefault = () =>{
      setReset(false);
  }
 
-
+//sort list DESC
 const sortListDES = () => {
       setReset(true);
       flatList.current.scrollToIndex({ index: 0, })
@@ -41,7 +41,7 @@ const sortListDES = () => {
          });
      };
 
-
+//sort list ASC
 const sortListASC = () => {
       setReset(true);
       setDirection(1);
@@ -49,7 +49,7 @@ const sortListASC = () => {
         return ((obj1.game_indices[0]).game_index- (obj2.game_indices[0]).game_index);
       });
     };
-
+//load more data when end list is reached
 const loadMorePokemons = () =>{
       limit = limit + 20  ;
       fetchPokemons()
@@ -68,6 +68,8 @@ function renderItem (item) {
    const index = (item.game_indices[0]).game_index
    let index_string=((item.game_indices[0]).game_index).toString();
    let pokemon_index;
+  
+    //output for index 1 is #001
    if(index<10) pokemon_index="#00"+index_string
    if (index>10&&index<100) pokemon_index="#0"+index_string;
    if (index>99) pokemon_index="#"+index_string ;

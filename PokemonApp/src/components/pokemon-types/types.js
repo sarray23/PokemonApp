@@ -1,3 +1,4 @@
+//list of types
 import React, {useEffect} from 'react';
 import {FlatList} from 'react-native'
 import { getRgbaColor } from "../../utils";

@@ -16,11 +16,12 @@ const bgColor = route.params.bgColor;
 const screenWidth = Math.round(Dimensions.get('window').width);
 const [modalVisible, setModalVisible] = useState(false);
 const [selectedStartDate, setSelectedStartDate] = useState(null);
-
+  
+//display pokemon types 
 const display_types = (pokemon) => {
   return <Types types={pokemon.types}/>
 }
-
+//display pokemon abilities 
 const display_abilities=(pokemon)=>{
   return <Abilities abilities={pokemon.abilities}/>
 }

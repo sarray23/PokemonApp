@@ -23,7 +23,7 @@ const fetchPokemons= () => dispatch(getPokemons(limit));
 pokemonsTab = pokemons;
 const flatList = useRef();
 
-
+//reset sort
 const setDefault = () =>{
      limit=0;
      setDirection(-1)

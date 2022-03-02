@@ -29,6 +29,7 @@ const flatList = useRef();
 
 //reset sort
 const setDefault = () =>{
+     flatList.current.scrollToIndex({ index: 0, })
      limit=0;
      setDirection(-1)
      fetchPokemons();
@@ -56,7 +57,6 @@ const sortListASC = () => {
     };
 //load more data when end list is reached
 const loadMorePokemons = () =>{
-
       limit = limit + 30  ;
        setSelectedId(true);
       fetchPokemons()  ;

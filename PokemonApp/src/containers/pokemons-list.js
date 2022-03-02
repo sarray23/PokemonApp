@@ -10,16 +10,16 @@ import styles from "./styles/pokemons-style";
 import PokemonItem from "../components/pokemon-list/render-row-pokemon";
 import Loader from "../components/Loader/loader";
 
-let limit = 0;
+let limit = 30;
 let pokemonsTab= [];
 
 const Pokemons = ({navigation, route}) => {
 
-const [selectedId, setSelectedId] = useState(null);
+const [selectedId, setSelectedId] = useState(false);
 const [isLoading, setLoading] = useState(true);
 
 const [direction, setDirection] = useState(-1);
-const [displayReset, setReset] = useState(null);
+const [displayReset, setReset] = useState(false);
 
 const {pokemons} = useSelector(state => state.pokemonsReducer);
 const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const sortListDES = () => {
       flatList.current.scrollToIndex({ index: 0, })
       setDirection(0);
       pokemons.sort((obj1, obj2) => {
-           return ((obj2.game_indices[0]).game_index- (obj1.game_indices[0]).game_index);
+           return ((obj2.game_indices[0]).game_index - (obj1.game_indices[0]).game_index);
          });
      };
 
@@ -49,24 +49,35 @@ const sortListDES = () => {
 const sortListASC = () => {
       setReset(true);
       setDirection(1);
+      flatList.current.scrollToIndex({ index: 0, })
       pokemons.sort((obj1, obj2) => {
         return ((obj1.game_indices[0]).game_index- (obj2.game_indices[0]).game_index);
       });
     };
 //load more data when end list is reached
 const loadMorePokemons = () =>{
-      limit = limit + 20  ;
-      fetchPokemons()
+
+      limit = limit + 30  ;
+       setSelectedId(true);
+      fetchPokemons()  ;
+      pokemonsTab =    pokemons
     }
 
+//navigation to the details screen with params
 function navigateToDetails(item, pokemon_index){
    navigation.navigate("PokemonDetails", { pokemon:item, backgroundColor: item.types[0].type.name, index: pokemon_index})
 }
 
 useEffect(() => {
     fetchPokemons();
-    setSelectedId(1);
-    setTimeout(()=> setLoading(false), 2000);
+    setSelectedId(true);
+     let timer = setTimeout(()=> setLoading(false), 2000);
+      // this will clear Timeout
+      // when component unmount like in willComponentUnmount
+      // and show will not change to true
+     return () => {
+            clearTimeout(timer);
+          };
   }, []);
 
 function renderItem (item) {

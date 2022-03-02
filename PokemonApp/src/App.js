@@ -20,7 +20,9 @@ useEffect(() => {
  }, []);
 
 return(
- loading? <SplashScreen/>:
+ loading?
+    <SplashScreen/>
+    :
           <Provider store={store}>
              <RootNavigator />
           </Provider> )}

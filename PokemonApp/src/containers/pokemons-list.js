@@ -27,9 +27,12 @@ const fetchPokemons= () => dispatch(getPokemons(limit));
 pokemonsTab = pokemons;
 const flatList = useRef();
 
+const scrollToTop = () =>{
+   flatList.current.scrollToIndex({ index: 0, })
+}
 //reset sort
 const setDefault = () =>{
-     flatList.current.scrollToIndex({ index: 0, })
+     scrollToTop()
      limit=0;
      setDirection(-1)
      fetchPokemons();
@@ -39,7 +42,7 @@ const setDefault = () =>{
 //sort list DESC
 const sortListDES = () => {
       setReset(true);
-      flatList.current.scrollToIndex({ index: 0, })
+      scrollToTop()
       setDirection(0);
       pokemons.sort((obj1, obj2) => {
            return ((obj2.game_indices[0]).game_index - (obj1.game_indices[0]).game_index);
@@ -50,7 +53,7 @@ const sortListDES = () => {
 const sortListASC = () => {
       setReset(true);
       setDirection(1);
-      flatList.current.scrollToIndex({ index: 0, })
+     scrollToTop()
       pokemons.sort((obj1, obj2) => {
         return ((obj1.game_indices[0]).game_index- (obj2.game_indices[0]).game_index);
       });

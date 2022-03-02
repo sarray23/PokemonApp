@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Provider} from 'react-redux';
-import {View, Text, FlatList, TouchableOpacity, StatusBar} from 'react-native';
+import { StatusBar} from 'react-native';
 import SplashScreen from "./containers/splash-screen";
 import {store} from './redux/store';
 import RootNavigator from './navigation/RootNavigator';

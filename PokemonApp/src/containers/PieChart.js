@@ -24,10 +24,10 @@ export default class PieChartComponent extends Component {
       pie: {
         title: 'Pokemon stats',
         detail: {
-           time_value_list: [2022],
-                    legend_list: ['Test1'],
+           time_value_list: [],
+                    legend_list: [],
                     dataset: {
-                      Test1: { '2022': 9 },
+                      Test1: {},
 
           }
         }

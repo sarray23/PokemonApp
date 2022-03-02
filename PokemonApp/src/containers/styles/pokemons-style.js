@@ -1,7 +1,5 @@
 import {StyleSheet} from "react-native";
-import {Dimensions} from 'react-native';
-
-const screenWidth = Math.round(Dimensions.get('window').width);
+import Metrics from "../../theme/metrics";
 
 export default  StyleSheet.create({
 container:{
@@ -31,7 +29,7 @@ rowContent: {
    flexDirection: 'column',
    marginBottom: 30,
    opacity: 1.6,
-   width: screenWidth/2-10,
+   width: Metrics.width/2-10,
    marginRight:  5,
    marginLeft:  5,
    justifyContent: "space-between",

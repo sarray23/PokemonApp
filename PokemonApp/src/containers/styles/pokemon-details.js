@@ -1,7 +1,5 @@
 import {StyleSheet} from "react-native";
-import {Dimensions} from 'react-native';
-
-const screenWidth = Math.round(Dimensions.get('window').width);
+import Metrics from "../../theme/metrics";
 
 export default  StyleSheet.create({
 container: {
@@ -34,7 +32,7 @@ pokemonDetails: {
 },
 
 content: {
-     width: screenWidth-30,
+     width: (Metrics.width)-30,
      height: 100,
      borderRadius: 18,
      marginTop:35,
@@ -58,7 +56,7 @@ pokemonName: {
 } ,
 
 otherDetails: {
-    width: screenWidth-20,
+    width: (Metrics.width)-20,
     height: 100,
     borderRadius: 18,
     marginTop:35,
@@ -100,7 +98,7 @@ backView: {
 },
 
 statsView: {
-    width: screenWidth-20,
+    width: (Metrics.width)-20,
     borderRadius: 18,
     marginTop:35,
     justifyContent: "center",

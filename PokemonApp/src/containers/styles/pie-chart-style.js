@@ -1,8 +1,7 @@
 import {StyleSheet} from "react-native";
-import {Dimensions} from 'react-native';
+import Metrics from "../../theme/metrics";
 
 
-const screenWidth = Math.round(Dimensions.get('window').width);
 
 export default  StyleSheet.create({
 container: {
@@ -17,8 +16,8 @@ container: {
   },
   bar: {
     marginTop: 10,
-    height: Dimensions.get('window').height / 2,
-    width: Dimensions.get('window').width
+    height: Metrics.height / 2,
+    width: Metrics.width
   },
   welcome: {
     fontSize: 20,

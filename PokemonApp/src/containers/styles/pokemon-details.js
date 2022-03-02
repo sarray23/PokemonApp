@@ -104,6 +104,8 @@ statsView: {
     borderRadius: 18,
     marginTop:35,
     justifyContent: "center",
+    bottom: 10
+
 },
 
 statsTitle: {
@@ -111,6 +113,12 @@ fontWeight: "bold",
    color: "#000",
    fontSize: 14,
      padding: 20,
+},
+
+statsViewContent: {
+ flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-between"
 }
 
 

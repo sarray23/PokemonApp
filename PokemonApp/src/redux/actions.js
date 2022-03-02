@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const GET_POKEMONS = 'FETCH_POKEMONS';
-//url 
+//url
 const URL = "https://pokeapi.co/api/v2/pokemon?offset=0"+"&limit=";
 
 export const getPokemons= (limit) => {
@@ -14,8 +14,7 @@ export const getPokemons= (limit) => {
       let results = res.data.results;
       for(let i=0; i<results.length; i++)
       {
-          const rest = await axios.get(results[i].url);
-
+         const rest = await axios.get(results[i].url);
          newData.push(rest.data)
       }
 

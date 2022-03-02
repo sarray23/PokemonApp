@@ -4,7 +4,7 @@ import styles from "./styles/header-style";
 
 const Header = (props) => {
    return (
-      <View style={[styles.container, {backgroundColor: props.bgColor}]}>
+      <View style={[styles.container, {backgroundColor: props.backgroundColor}]}>
        {props.displayIconBack? <TouchableHighlight underlayColor="transparent" style={{position: "absolute",alignSelf:"center" , left: 15}} onPress={props.nav}>
         <Image source={require("../../assets/images/back.png")}
                style={{width: 35,height: 35,

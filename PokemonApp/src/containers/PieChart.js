@@ -39,7 +39,7 @@ componentDidMount() {
    let legendList=[]  ;
    let dataset= [] ;
    let dataSet = {};
-   //get pokemons array from pokemon details to display stats 
+   //get pokemons array from pokemon details to display stats
    let stats=this.props.pokemon.stats;
    stats.forEach(item=>{
       legendList.push(item.stat.name) ;
@@ -157,7 +157,7 @@ render() {
               }}
             >
       <ScrollView style={styles.container}>
-           <Header title= "Stats" bgColor= "#fff"
+           <Header title= "Stats" backgroundColor= "#fff"
                    back={this.back}
                    displayIconBack={true}
                    nav={this.props.hideModal}/>

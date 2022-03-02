@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react';
-import {View, Text, FlatList, Image, Dimensions,  TouchableOpacity, TouchableHighlight } from 'react-native';
+import {View, Text, FlatList } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import Header from "../components/Header/header";
 import Types from "../components/pokemon-types/types";
@@ -7,6 +7,8 @@ import { getRgbaColor } from "../utils";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import {getPokemons} from '../redux/actions';
 import styles from "./styles/pokemons-style";
+import PokemonItem from "../components/pokemon-list/render-row-pokemon";
+import Loader from "../components/Loader/loader";
 
 let limit = 0;
 let pokemonsTab= [];
@@ -14,6 +16,8 @@ let pokemonsTab= [];
 const Pokemons = ({navigation, route}) => {
 
 const [selectedId, setSelectedId] = useState(null);
+const [isLoading, setLoading] = useState(true);
+
 const [direction, setDirection] = useState(-1);
 const [displayReset, setReset] = useState(null);
 
@@ -56,19 +60,19 @@ const loadMorePokemons = () =>{
     }
 
 function navigateToDetails(item, pokemon_index){
-   navigation.navigate("PokemonDetails", { pokemon:item, bgColor: item.types[0].type.name, index: pokemon_index})
+   navigation.navigate("PokemonDetails", { pokemon:item, backgroundColor: item.types[0].type.name, index: pokemon_index})
 }
 
 useEffect(() => {
     fetchPokemons();
-    setSelectedId(1)
+    setSelectedId(1);
+    setTimeout(()=> setLoading(false), 2000);
   }, []);
 
 function renderItem (item) {
    const index = (item.game_indices[0]).game_index
    let index_string=((item.game_indices[0]).game_index).toString();
    let pokemon_index;
-  
     //output for index 1 is #001
    if(index<10) pokemon_index="#00"+index_string
    if (index>10&&index<100) pokemon_index="#0"+index_string;
@@ -76,29 +80,25 @@ function renderItem (item) {
    let backgroundColor= getRgbaColor(item.types[0].type.name,',0.5');
 
    return (
-      <TouchableHighlight underlayColor="transparent"  onPress={()=>{navigateToDetails(item, pokemon_index)}}>
-         <View style={[styles.rowContent, {backgroundColor: backgroundColor}]}>
-            <Image source={{uri: item.sprites.other.home.front_default}}
-                   resizeMode="cover"
-                   style={styles.pokemonImage} />
-             <Text style={styles.name}>{((item.name).charAt(0)).toUpperCase()}{(item.name).slice(1)} </Text>
-             <Text style={styles.name}>{pokemon_index} </Text>
-             <Types types={item.types}/>
-          </View>
-       </TouchableHighlight>
+      <PokemonItem item={item} navigate={()=>{navigateToDetails(item, pokemon_index, navigation)}}
+                   backgroundColor={backgroundColor}
+                   pokemon_index={pokemon_index}
+                   />
      );
    }
 
 
 return (
  <View style={styles.container}>
-     <Header title= "POKEMON" bgColor= "#fff" displayIconBack={false}/>
-     <View style={styles.filter}>
-        <Icon size={29}color="#65ABE5" name={(direction===1)?"sort-amount-down": "sort-amount-up"}  onPress={
-        (direction===1)
-        ?sortListDES:sortListASC}/>
-       {displayReset? <Text style={styles.reset} onPress={()=> setDefault()}>Reset</Text> :null}
-     </View>
+     <Header title= "POKEMON" backgroundColor= "#fff" displayIconBack={false}/>
+
+  {!isLoading?
+    <View style={styles.filter}>
+        <Icon size={29} color="#65ABE5" name={(direction===1)?"sort-amount-down": "sort-amount-up"}  onPress={
+        (direction===1)?sortListDES:sortListASC}/>{displayReset? <Text style={styles.reset} onPress={()=> setDefault()}>Reset</Text> :null}
+     </View> :null}
+   {isLoading? <Loader name="BallSpinFadeLoader" color="#65ABE5"/>
+                    :
      <FlatList style={{flex: 1}}
                numColumns={2}
                data={pokemonsTab}
@@ -109,7 +109,9 @@ return (
                renderItem={({item, index}) => renderItem(item, index)}
                onEndReached={loadMorePokemons}
                showsVerticalScrollIndicator={false}
-        />
+        />   }
+
+
     </View>
   );
 };

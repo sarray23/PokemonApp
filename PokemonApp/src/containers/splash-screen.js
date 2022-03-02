@@ -1,9 +1,6 @@
 import React  from 'react';
 import {View, Text, Image} from 'react-native';
-import LoaderKit from 'react-native-loader-kit'
-
-const url = '../assets/splashscreen.png';
-
+import Loader from "../components/Loader/loader"
 
 const SplashScreen = () => {
 return(
@@ -11,11 +8,7 @@ return(
 
           <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
              <Text>Loading</Text>
-              <LoaderKit style={{ width: 50, height: 50, marginLeft: 15 }}
-                         name={'BallPulse'}
-                         size={50}
-                         color={'red'}
-                 />
+              <Loader name='BallPulse' color="red" />
            </View>
 
   </View>

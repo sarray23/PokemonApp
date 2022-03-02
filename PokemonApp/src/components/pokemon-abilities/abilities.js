@@ -1,7 +1,7 @@
-//list of abilities 
+//list of abilities
 import React, {useEffect} from 'react';
-import {View, Text, FlatList, TouchableHighlight} from 'react-native'
-import { getRgbaColor,getRandomColor } from "../../utils";
+import {FlatList} from 'react-native'
+import { getRandomColor } from "../../utils";
 import TypeView from "../pokemon-type-view/type-view";
 
 const Abilities = (props) => {
@@ -10,10 +10,10 @@ const Abilities = (props) => {
                     horizontal = {true}
                     renderItem={({item}) => {
                     return(<TypeView color= {getRandomColor()} type={item.ability.name} />
-                              )
-              }}   />
+                   )
+              }} />
 
-   )   ;
+   );
 
 }
 

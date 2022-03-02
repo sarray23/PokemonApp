@@ -1,7 +1,6 @@
 import {StyleSheet} from "react-native";
 import {Dimensions} from 'react-native';
 
-
 const screenWidth = Math.round(Dimensions.get('window').width);
 
 export default  StyleSheet.create({
@@ -17,6 +16,7 @@ filter:{
  alignSelf: 'flex-end',
  margin: 10
 },
+
 reset:{
    color: "#65ABE5",
    fontSize: 16,

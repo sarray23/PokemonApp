@@ -1,16 +1,18 @@
-import { GET_POKEMONS} from './actions';
+import {GET_POKEMONS} from './actions';
 
 const initialState = {
-  pokemons: [],
+    pokemons: [],
+    offset: 0
 };
 
 function pokemonsReducer(state = initialState, action) {
-  switch (action.type) {
-     case GET_POKEMONS:
-      return {...state, pokemons: action.payload, limit: state.limit};
-    default:
-      return state;
-  }
+    let tabPokemons = (state.pokemons).concat(action.payload)
+    switch (action.type) {
+        case GET_POKEMONS:
+            return {...state, pokemons: tabPokemons, offset: state.offset};
+        default:
+            return state;
+    }
 }
 
 export default pokemonsReducer;

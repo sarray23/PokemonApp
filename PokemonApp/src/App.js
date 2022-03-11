@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Provider} from 'react-redux';
 import { StatusBar} from 'react-native';
-import SplashScreen from "./containers/splash-screen";
 import {store} from './redux/store';
 import RootNavigator from './navigation/RootNavigator';
 
@@ -13,16 +12,9 @@ LogBox.ignoreLogs([
 
 const App = () => {
 StatusBar.setHidden(true);
-const[loading, setLoading] = useState(true)
 
-useEffect(() => {
-   setTimeout(()=>setLoading(false), 2000);
- }, []);
 
 return(
- loading?
-    <SplashScreen/>
-    :
           <Provider store={store}>
              <RootNavigator />
           </Provider> )}

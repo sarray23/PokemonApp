@@ -1,133 +1,114 @@
-import React, {useEffect, useState, useRef} from 'react';
-import {View, Text, FlatList } from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {FlatList, Text, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import Header from "../components/Header/header";
-import Types from "../components/pokemon-types/types";
-import { getRgbaColor } from "../utils";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import {getPokemons} from '../redux/actions';
 import styles from "./styles/pokemons-style";
 import PokemonItem from "../components/pokemon-list/render-row-pokemon";
-import Loader from "../components/Loader/loader";
+import SplashScreen from "./splash-screen";
 
-let limit = 30;
-let pokemonsTab= [];
+let pokemonsList = []
 
-const Pokemons = ({navigation, route}) => {
+const Pokemons = ({navigation}) => {
+    const [selectedId, setSelectedId] = useState(false);
+    const [direction, setDirection] = useState(-1);
+    const [displayReset, setReset] = useState(false);
+    const [offset, setOffset] = useState(0);
 
-const [selectedId, setSelectedId] = useState(false);
-const [isLoading, setLoading] = useState(true);
+    const flatList = useRef();
 
-const [direction, setDirection] = useState(-1);
-const [displayReset, setReset] = useState(false);
+    const {pokemons} = useSelector(state => state.pokemonsReducer);
+    const dispatch = useDispatch();
+    const fetchPokemons = useCallback(async () => {
+        await dispatch(getPokemons(offset, direction));
+    }, [offset, dispatch]);
 
-const {pokemons} = useSelector(state => state.pokemonsReducer);
-const dispatch = useDispatch();
-const fetchPokemons= () => dispatch(getPokemons(limit));
-pokemonsTab = pokemons;
-const flatList = useRef();
+    pokemonsList = pokemons.slice();
 
-const scrollToTop = () =>{
-   flatList.current.scrollToIndex({ index: 0, })
-}
-//reset sort
-const setDefault = () =>{
-     scrollToTop()
-     limit=0;
-     setDirection(-1)
-     fetchPokemons();
-     setReset(false);
- }
+    if (direction === 1) pokemonsList.sort((obj1, obj2) => {
+        return ((obj1.game_indices[0]).game_index - (obj2.game_indices[0]).game_index);
+    });
+    if (direction === 0) pokemonsList.sort((obj1, obj2) => {
+        return ((obj2.game_indices[0]).game_index - (obj1.game_indices[0]).game_index);
+    });
 
-//sort list DESC
-const sortListDES = () => {
-      setReset(true);
-      scrollToTop()
-      setDirection(0);
-      pokemons.sort((obj1, obj2) => {
-           return ((obj2.game_indices[0]).game_index - (obj1.game_indices[0]).game_index);
-         });
-     };
+    useEffect(() => {
+        setSelectedId(true);
+        fetchPokemons();
+        // this will clear Timeout
+        // when component unmount like in willComponentUnmount
+        // and show will not change to true
+    }, [offset, fetchPokemons]);
+    //load more data when end list is reached
 
-//sort list ASC
-const sortListASC = () => {
-      setReset(true);
-      setDirection(1);
-     scrollToTop()
-      pokemons.sort((obj1, obj2) => {
-        return ((obj1.game_indices[0]).game_index- (obj2.game_indices[0]).game_index);
-      });
-    };
-//load more data when end list is reached
-const loadMorePokemons = () =>{
-      limit = limit + 30  ;
-       setSelectedId(true);
-      fetchPokemons()  ;
-      pokemonsTab =    pokemons
+    //navigation to the details screen with params
+
+    return (
+        <View style={styles.container}>
+            <Header title="POKEMON" backgroundColor="#fff" displayIconBack={false}/>
+            {pokemons.length > 0 ?
+                <View style={styles.filter}>
+                    <Icon size={29} color="#65ABE5" name={(direction === 1) ? "sort-amount-down" : "sort-amount-up"}
+                        onPress={() => {
+                            if (direction === 1)
+                                sort(0)
+                            else sort(1)
+                        }}
+                    />{displayReset ?
+                        <Text style={styles.reset} onPress={() => setDefault()}>Reset</Text> : null}
+                </View> : null}
+            {pokemons.length === 0 ? <SplashScreen name="BallSpinFadeLoader" color="#65ABE5"/>
+                :
+                <FlatList style={{flex: 1}}
+                    numColumns={2}
+                    data={pokemonsList}
+                    extraData={selectedId}
+                    ref={flatList}
+                    onEndReachedThreshold={0.01}
+                    keyExtractor={(item) => Math.random() + item.id}
+                    renderItem={({item}) => {
+                        return <PokemonItem item={item}
+                            navigate={(item, pokemon_index) => {
+                                navigateToDetails(item, pokemon_index)
+                            }}
+                        />
+                    }}
+                    onEndReached={loadMorePokemons}
+                    showsVerticalScrollIndicator={false}
+                />}
+        </View>
+    );
+
+    function loadMorePokemons () {
+        setOffset(offset + 20);
     }
 
-//navigation to the details screen with params
-function navigateToDetails(item, pokemon_index){
-   navigation.navigate("PokemonDetails", { pokemon:item, backgroundColor: item.types[0].type.name, index: pokemon_index})
-}
+    function scrollToTop ()  {
+        flatList.current.scrollToIndex({animated: true, index: 0})
+    }
 
-useEffect(() => {
-    fetchPokemons();
-    setSelectedId(true);
-     let timer = setTimeout(()=> setLoading(false), 2000);
-      // this will clear Timeout
-      // when component unmount like in willComponentUnmount
-      // and show will not change to true
-     return () => {
-            clearTimeout(timer);
-          };
-  }, []);
+    //reset sort
+    function setDefault () {
+        setOffset(0);
+        scrollToTop()
+        setDirection(-1);
+        setReset(false);
+    }
 
-function renderItem (item) {
-   const index = (item.game_indices[0]).game_index
-   let index_string=((item.game_indices[0]).game_index).toString();
-   let pokemon_index;
-    //output for index 1 is #001
-   if(index<10) pokemon_index="#00"+index_string
-   if (index>10&&index<100) pokemon_index="#0"+index_string;
-   if (index>99) pokemon_index="#"+index_string ;
-   let backgroundColor= getRgbaColor(item.types[0].type.name,',0.5');
+    //sort list ASC
+    function sort (val) {
+        setReset(true);
+        setDirection(val);
+        scrollToTop();
+    }
+    function navigateToDetails(item, pokemon_index) {
+        navigation.navigate("PokemonDetails", {
+            pokemon: item,
+            index: pokemon_index
+        })
+    }
 
-   return (
-      <PokemonItem item={item} navigate={()=>{navigateToDetails(item, pokemon_index, navigation)}}
-                   backgroundColor={backgroundColor}
-                   pokemon_index={pokemon_index}
-                   />
-     );
-   }
-
-
-return (
- <View style={styles.container}>
-     <Header title= "POKEMON" backgroundColor= "#fff" displayIconBack={false}/>
-
-  {!isLoading?
-    <View style={styles.filter}>
-        <Icon size={29} color="#65ABE5" name={(direction===1)?"sort-amount-down": "sort-amount-up"}  onPress={
-        (direction===1)?sortListDES:sortListASC}/>{displayReset? <Text style={styles.reset} onPress={()=> setDefault()}>Reset</Text> :null}
-     </View> :null}
-   {isLoading? <Loader name="BallSpinFadeLoader" color="#65ABE5"/>
-                    :
-     <FlatList style={{flex: 1}}
-               numColumns={2}
-               data={pokemonsTab}
-               extraData={selectedId}
-               ref={flatList}
-               onEndReachedThreshold={0.8}
-               keyExtractor={item => item.name}
-               renderItem={({item, index}) => renderItem(item, index)}
-               onEndReached={loadMorePokemons}
-               showsVerticalScrollIndicator={false}
-        />   }
-
-
-    </View>
-  );
 };
 
 export default Pokemons;

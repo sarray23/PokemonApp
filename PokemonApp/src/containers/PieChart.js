@@ -12,6 +12,7 @@ import {
 import { BarChart, LineChart, PieChart } from 'react-native-charts-wrapper'
 import Header from "../components/Header/header";
 import styles from "./styles/pie-chart-style";
+import {getRandomColor} from "../utils";
 
 export default class PieChartComponent extends Component {
   constructor (props) {
@@ -69,14 +70,7 @@ componentDidMount() {
     this.setState({pie: pie})
   }
 
-  getRandomColor () {
-    var letters = '0123456789ABCDEF'
-    var color = '#'
-    for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)]
-    }
-    return color
-  }
+
 
   renderPie () {
     const time = this.state.pie.detail.time_value_list
@@ -97,7 +91,7 @@ componentDidMount() {
         const datasetTimeValue = datasetValue[timeValue]
         valueLegend.push({ value: parseInt(datasetTimeValue), label: legendValue })
       })
-      colorLegend.push(processColor(this.getRandomColor()))
+      colorLegend.push(processColor(getRandomColor()))
     })
 
     const datasetObject = {

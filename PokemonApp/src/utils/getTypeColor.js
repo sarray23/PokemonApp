@@ -1,9 +1,9 @@
 //return color per type for background color
 
-import { POKEMON_TYPE_COLORS } from '../constants';
+import {POKEMON_TYPE_COLORS} from '../constants';
 
 const getTypeColor = (type) => {
-   return (POKEMON_TYPE_COLORS[type.toLowerCase()]);
+    return (POKEMON_TYPE_COLORS[type.toLowerCase()]);
 }
 
-export  {getTypeColor};
+export {getTypeColor};

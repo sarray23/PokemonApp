@@ -16,11 +16,11 @@ function pokemonItem({item, navigate}) {
 
     return (
         <TouchableHighlight underlayColor="transparent" onPress={()=>navigate(item, pokemon_index)}
-                            style={[styles.rowContent, {backgroundColor: backgroundColor}]}>
+            style={[styles.rowContent, {backgroundColor: backgroundColor}]}>
             <View style={[styles.rowTouch]}>
                 <Image source={{uri: item.sprites.other.home.front_default}}
-                       resizeMode="cover"
-                       style={styles.pokemonImage}/>
+                    resizeMode="cover"
+                    style={styles.pokemonImage}/>
                 <Text style={styles.name}>{((item.name).charAt(0)).toUpperCase()}{(item.name).slice(1)} </Text>
                 <Text style={styles.name}>{pokemon_index} </Text>
                 <Types types={item.types}/>
@@ -28,6 +28,5 @@ function pokemonItem({item, navigate}) {
         </TouchableHighlight>
     );
 }
-
 
 export default pokemonItem

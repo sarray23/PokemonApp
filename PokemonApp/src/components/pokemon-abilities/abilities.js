@@ -7,11 +7,11 @@ import TypeView from "../pokemon-type-view/type-view";
 const Abilities = (props) => {
     return (
         <FlatList data={props.abilities}
-                  horizontal={true}
-                  renderItem={({item}) => {
-                      return (<TypeView color={getRandomColor()} type={item.ability.name}/>
-                      )
-                  }}/>
+            horizontal={true}
+            renderItem={({item}) => {
+                return (<TypeView color={getRandomColor()} type={item.ability.name}/>
+                )
+            }}/>
 
     );
 

@@ -10,8 +10,8 @@ const CardView = (props) => {
             </TouchableHighlight>
 
             <Image source={{uri: props.pokemonImage}}
-                   resizeMode="cover"
-                   style={styles.pokemonImage}/>
+                resizeMode="cover"
+                style={styles.pokemonImage}/>
         </View>
     );
 

@@ -6,10 +6,9 @@ const initialState = {
 };
 
 function pokemonsReducer(state = initialState, action) {
-    let tabPokemons = (state.pokemons).concat(action.payload)
     switch (action.type) {
         case GET_POKEMONS:
-            return {...state, pokemons: tabPokemons, offset: state.offset};
+            return {...state, pokemons: [...state.pokemons, ...action.payload], offset: state.offset};
         default:
             return state;
     }

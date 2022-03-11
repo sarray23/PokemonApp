@@ -6,6 +6,7 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 const Metrics = {
      height: screenHeight,
      width: screenWidth,
+     //backgroundColor:
 }
 
 export default Metrics

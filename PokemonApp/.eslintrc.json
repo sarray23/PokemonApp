@@ -14,7 +14,7 @@
         "ecmaFeatures": {
             "jsx": true
         },
-        "ecmaVersion": 2018,
+        "ecmaVersion": "2018",
         "sourceType": "module"
     },
     "plugins": [
@@ -22,6 +22,7 @@
         "react-native"
     ],
     "rules": {
+        "react/prop-types": "off",
         "indent": [
             "error",
             4
@@ -30,5 +31,6 @@
             "error",
             "unix"
         ]
+
     }
 }

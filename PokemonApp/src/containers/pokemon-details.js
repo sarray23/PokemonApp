@@ -15,11 +15,11 @@ const PokemonDetails = ({navigation, route}) => {
 
     const backgroundColor = getRgbaColor(pokemon.types[0].type.name);
 
-//display pokemon types by returning types component
+    //display pokemon types by returning types component
     const display_types = (pokemon) => {
         return <Types types={pokemon.types}/>
     }
-//display pokemon abilities by returning abilities component
+    //display pokemon abilities by returning abilities component
     const display_abilities = (pokemon) => {
         return <Abilities abilities={pokemon.abilities}/>
     }
@@ -31,8 +31,8 @@ const PokemonDetails = ({navigation, route}) => {
                 <CardView navigate={() => {
                     navigation.goBack()
                 }}
-                          backgroundColor={backgroundColor}
-                          pokemonImage={pokemon.sprites.other.home.front_default}/>
+                backgroundColor={backgroundColor}
+                pokemonImage={pokemon.sprites.other.home.front_default}/>
                 <Text
                     style={styles.pokemonName}>{index} {((pokemon.name).charAt(0)).toUpperCase()}{(pokemon.name).slice(1)}</Text>
 
@@ -40,22 +40,22 @@ const PokemonDetails = ({navigation, route}) => {
                     {/* this component displays the types of the selected  pokemon */}
 
                     <Row details={display_types(pokemon)}
-                         backgroundColor={backgroundColor}
-                         type="Type"/>
+                        backgroundColor={backgroundColor}
+                        type="Type"/>
                     {/* this component displays the abilities of the selected pokemon */}
 
                     <Row details={display_abilities(pokemon)}
-                         backgroundColor={backgroundColor}
-                         type="Abilities"/>
+                        backgroundColor={backgroundColor}
+                        type="Abilities"/>
                     {/* this component displays the weight and height of the selected pokemon */}
                     <PokemonAdditionDetails backgroundColor={backgroundColor}
-                                            weight={pokemon.weight}
-                                            height={pokemon.height}/>
+                        weight={pokemon.weight}
+                        height={pokemon.height}/>
                     {/* this component displays the navigation to the stats of the selected pokemon */}
                     <StatsView displayModal={() => {
                         setModalVisible(true)
                     }}
-                               backgroundColor={backgroundColor}/>
+                    backgroundColor={backgroundColor}/>
                 </View>
                 {/* this component will be displayed when modal is visible */}
                 <PieChart pokemon={pokemon} modalVisible={modalVisible} hideModal={() => {

@@ -1,8 +1,6 @@
-import {getTypeColor} from "./getTypeColor";
-
-const getRgbaColor = (type) => {
+const getRgbaColor = (type, typeColor) => {
     let color;
-    if (type.charAt(0) !== "#") color = getTypeColor(type);
+    if (type.charAt(0) !== "#") color = typeColor;
     else color = type;
     var c;
     if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(color)) {
@@ -15,6 +13,5 @@ const getRgbaColor = (type) => {
     }
     throw new Error('Bad Hex');
 };
-
 
 export {getRgbaColor};

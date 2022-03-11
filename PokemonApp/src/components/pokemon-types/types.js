@@ -1,7 +1,7 @@
 //list of types
-import React, {useEffect} from 'react';
+import React from 'react';
 import {FlatList} from 'react-native'
-import {getRgbaColor} from "../../utils";
+import {getTypeColor} from "../../utils";
 import TypeView from "../pokemon-type-view/type-view";
 
 const Types = (props) => {
@@ -10,7 +10,7 @@ const Types = (props) => {
         <FlatList data={props.types}
                   horizontal={true}
                   renderItem={({item}) => {
-                      let typeColor = getRgbaColor(item.type.name);
+                      let typeColor = getTypeColor(item.type.name);
                       return (<TypeView color={typeColor} type={item.type.name}/>
                       )
                   }}

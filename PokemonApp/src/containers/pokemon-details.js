@@ -3,7 +3,7 @@ import {ScrollView, Text, View} from "react-native";
 import Types from "../components/pokemon-types/types"
 import Abilities from "../components/pokemon-abilities/abilities"
 import PieChart from "./PieChart";
-import {getRgbaColor} from "../utils";
+import {getTypeColor} from "../utils";
 import styles from "./styles/pokemon-details";
 import {CardView, PokemonAdditionDetails, Row, StatsView} from '../components/pokemon-details';
 
@@ -13,7 +13,7 @@ const PokemonDetails = ({navigation, route}) => {
     const index = route.params.index;
     const [modalVisible, setModalVisible] = useState(false);
 
-    const backgroundColor = getRgbaColor(pokemon.types[0].type.name);
+    const backgroundColor = getTypeColor(pokemon.types[0].type.name);
 
     //display pokemon types by returning types component
     const display_types = (pokemon) => {

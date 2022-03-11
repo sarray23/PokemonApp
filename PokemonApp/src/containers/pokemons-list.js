@@ -7,12 +7,13 @@ import {getPokemons} from '../redux/actions';
 import styles from "./styles/pokemons-style";
 import PokemonItem from "../components/pokemon-list/render-row-pokemon";
 import SplashScreen from "./splash-screen";
+import {sortList }from "../utils/sortList";
 
 let pokemonsList = []
 
 const Pokemons = ({navigation}) => {
     const [selectedId, setSelectedId] = useState(false);
-    const [direction, setDirection] = useState(-1);
+    const [direction, setDirection] = useState("DEFAULT");
     const [displayReset, setReset] = useState(false);
     const [offset, setOffset] = useState(0);
 
@@ -21,43 +22,32 @@ const Pokemons = ({navigation}) => {
     const {pokemons} = useSelector(state => state.pokemonsReducer);
     const dispatch = useDispatch();
     const fetchPokemons = useCallback(async () => {
-        await dispatch(getPokemons(offset, direction));
+        await dispatch(getPokemons(offset));
     }, [offset, dispatch]);
-
     pokemonsList = pokemons.slice();
 
-    if (direction === 1) pokemonsList.sort((obj1, obj2) => {
-        return ((obj1.game_indices[0]).game_index - (obj2.game_indices[0]).game_index);
-    });
-    if (direction === 0) pokemonsList.sort((obj1, obj2) => {
-        return ((obj2.game_indices[0]).game_index - (obj1.game_indices[0]).game_index);
-    });
+    sortList(pokemonsList, direction)
 
     useEffect(() => {
         setSelectedId(true);
         fetchPokemons();
-        // this will clear Timeout
-        // when component unmount like in willComponentUnmount
-        // and show will not change to true
     }, [offset, fetchPokemons]);
-    //load more data when end list is reached
-
-    //navigation to the details screen with params
 
     return (
         <View style={styles.container}>
-            <Header title="POKEMON" backgroundColor="#fff" displayIconBack={false}/>
+            <Header title="POKEMON" backgroundColor = "#fff" displayIconBack={false}/>
             {pokemons.length > 0 ?
                 <View style={styles.filter}>
-                    <Icon size={29} color="#65ABE5" name={(direction === 1) ? "sort-amount-down" : "sort-amount-up"}
+                    <Icon size={29} color="#65ABE5" name={(direction === "DESC") ? "sort-amount-down" : "sort-amount-up"}
                         onPress={() => {
-                            if (direction === 1)
-                                sort(0)
-                            else sort(1)
+                            if (direction === "DESC")
+                                sort("ASC")
+                            else sort("DESC")
                         }}
                     />{displayReset ?
                         <Text style={styles.reset} onPress={() => setDefault()}>Reset</Text> : null}
                 </View> : null}
+
             {pokemons.length === 0 ? <SplashScreen name="BallSpinFadeLoader" color="#65ABE5"/>
                 :
                 <FlatList style={{flex: 1}}
@@ -80,28 +70,27 @@ const Pokemons = ({navigation}) => {
         </View>
     );
 
-    function loadMorePokemons () {
+    function loadMorePokemons() {
         setOffset(offset + 20);
     }
 
-    function scrollToTop ()  {
+    function scrollToTop() {
         flatList.current.scrollToIndex({animated: true, index: 0})
     }
 
-    //reset sort
-    function setDefault () {
+    function setDefault() {
         setOffset(0);
         scrollToTop()
-        setDirection(-1);
+        setDirection("DEFAULT");
         setReset(false);
     }
 
-    //sort list ASC
-    function sort (val) {
+    function sort(newDirection) {
         setReset(true);
-        setDirection(val);
+        setDirection(newDirection);
         scrollToTop();
     }
+
     function navigateToDetails(item, pokemon_index) {
         navigation.navigate("PokemonDetails", {
             pokemon: item,

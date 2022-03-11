@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, Image, TouchableHighlight} from 'react-native';
 import Types from "../pokemon-types/types";
 import styles from "../../containers/styles/pokemons-style";
-import {getRgbaColor} from "../../utils";
+import {getTypeColor} from "../../utils";
 
 function pokemonItem({item, navigate}) {
     const index = (item.game_indices[0]).game_index
@@ -12,7 +12,7 @@ function pokemonItem({item, navigate}) {
     if (index < 10) pokemon_index = "#00" + index_string
     if (index > 10 && index < 100) pokemon_index = "#0" + index_string;
     if (index > 99) pokemon_index = "#" + index_string;
-    let backgroundColor = getRgbaColor(item.types[0].type.name);
+    let backgroundColor = getTypeColor(item.types[0].type.name);
 
     return (
         <TouchableHighlight underlayColor="transparent" onPress={()=>navigate(item, pokemon_index)}

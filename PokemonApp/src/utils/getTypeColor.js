@@ -1,9 +1,10 @@
-//return color per type for background color
+import {getRgbaColor} from "./getRgbaColor";
 
 import {POKEMON_TYPE_COLORS} from '../constants';
 
 const getTypeColor = (type) => {
-    return (POKEMON_TYPE_COLORS[type.toLowerCase()]);
+    const typeColor = (POKEMON_TYPE_COLORS[type.toLowerCase()]);
+    return getRgbaColor(type, typeColor)
 }
 
 export {getTypeColor};

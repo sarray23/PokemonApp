@@ -7,10 +7,10 @@ const initialState = {
 
 function pokemonsReducer(state = initialState, action) {
     switch (action.type) {
-        case GET_POKEMONS:
-            return {...state, pokemons: [...state.pokemons, ...action.payload], offset: state.offset};
-        default:
-            return state;
+    case GET_POKEMONS:
+        return {...state, pokemons: [...state.pokemons, ...action.payload], offset: state.offset};
+    default:
+        return state;
     }
 }
 

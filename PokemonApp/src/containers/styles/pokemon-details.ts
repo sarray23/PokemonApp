@@ -66,12 +66,15 @@ export default StyleSheet.create({
         borderRadius: 18,
         marginTop: 35,
         paddingLeft: 10,
+        flexDirection: "row",
         paddingRight: 10,
+        justifyContent: "space-between"
     },
 
     titles: {
-        flexDirection: "row",
-        justifyContent: "space-between"
+        flexDirection: "column",
+        paddingLeft: 15,
+        paddingRight: 15
     },
 
     subtitle: {
@@ -79,16 +82,14 @@ export default StyleSheet.create({
         fontWeight: "normal",
         fontSize: 14,
         paddingTop: 20,
-        paddingLeft: 20,
-        paddingRight: 20
     },
 
     subtitleValue: {
         color: "#000",
         fontSize: 14,
         paddingTop: 20,
-        paddingLeft: 20,
-        paddingRight: 40
+      //  paddingLeft: 20,
+       // paddingRight: 40
     },
 
     backView: {

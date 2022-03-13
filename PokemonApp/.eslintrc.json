@@ -1,5 +1,5 @@
 {
-    "parser": "@babel/eslint-parser",
+    "parser": "@typescript-eslint/parser",
 
     "env": {
         "browser": true,
@@ -8,7 +8,8 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -19,9 +20,11 @@
     },
     "plugins": [
         "react",
-        "react-native"
+        "react-native",
+        "@typescript-eslint"
     ],
     "rules": {
+        "@typescript-eslint/no-unused-vars": ["error"],
         "react/prop-types": "off",
         "indent": [
             "error",
@@ -30,6 +33,7 @@
         "linebreak-style": [
             "error",
             "unix"
-        ]
+        ],
+        "no-empty": 2
     }
 }

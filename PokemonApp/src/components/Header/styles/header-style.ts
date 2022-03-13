@@ -24,7 +24,6 @@ export default StyleSheet.create({
         color: "#E893C2",
         alignSelf: "center",
         paddingTop: 15
-
     }
 
 });

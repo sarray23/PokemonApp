@@ -1,12 +1,27 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Modal, processColor, ScrollView, Text, View} from 'react-native';
 import {PieChart} from 'react-native-charts-wrapper'
 import Header from "../components/Header/header";
 import styles from "./styles/pie-chart-style";
 import {getRandomColor} from "../utils";
+import {Pokemon} from "../types/pokemon";
 
-export default class PieChartComponent extends Component {
-    constructor(props) {
+interface PropsType {
+    pokemon: Pokemon,
+    hideModal: ()=> void,
+    modalVisible: boolean
+}
+
+interface IState {
+    pie: any,
+    stats: [],
+    dataset:  any,
+    legendList : Array<string>,
+    pokemon: object,
+}
+
+export default class PieChartComponent extends React.Component <PropsType, IState> {
+    constructor(props: PropsType) {
         super(props)
         this.state = {
             stats: [],
@@ -20,7 +35,6 @@ export default class PieChartComponent extends Component {
                     legend_list: [],
                     dataset: {
                         Test1: {},
-
                     }
                 }
             },
@@ -28,30 +42,31 @@ export default class PieChartComponent extends Component {
     }
 
     componentDidMount() {
-        let legendList = [];
-        let dataset = [];
+        const legendList : Array<any> = [];
+        const dataset : Array<object>= [];
         //get pokemons array from pokemon details to display stats
-        let stats = this.props.pokemon.stats;
-        stats.forEach(item => {
-            legendList.push(item.stat.name);
+        const stats = this.props.pokemon.stats;
+        stats.forEach((item: { stat: any; base_stat: number; }) => {
+            const name  = item.stat.name;
+            legendList.push(name);
             dataset.push({'2022': item.base_stat});
         })
 
-        let returned_dataset = legendList.reduce(function (obj, v) {
-            dataset.forEach(item => {
+        const returned_dataset = legendList.reduce(function (obj: any, v: number) {
+            dataset.forEach((item: any) => {
                 obj[v] = item;
             })
             return obj;
         }, {});
         this.setState({legendList: legendList, dataset: returned_dataset});
 
-        let pie = {
+        const pie = {
             title: 'Pokemon stats',
             detail: {
                 time_value_list: [2022],
                 legend_list: legendList,
-                dataset: legendList.reduce(function (obj, v) {
-                    dataset.forEach(item => {
+                dataset: legendList.reduce(function (obj: any , v: number) {
+                    dataset.forEach((item: any) => {
                         obj[v] = item;
                     })
                     return obj;
@@ -66,15 +81,15 @@ export default class PieChartComponent extends Component {
         const time = this.state.pie.detail.time_value_list
         const legend = this.state.pie.detail.legend_list
         const dataset = this.state.pie.detail.dataset
-        var dataSetsValue = []
-        var dataStyle = {}
-        var legendStyle = {}
-        var descStyle = {}
-        var valueLegend = []
-        var colorLegend = []
+        const dataSetsValue = []
+        let dataStyle : any;
+        let legendStyle : object;
+        let descStyle ;
+        const valueLegend : Array<object> = []
+        const colorLegend : Array<any> = []
 
-        legend.map((legendValue) => {
-            time.map((timeValue) => {
+        legend.map((legendValue : string) => {
+            time.map((timeValue: number) => {
                 const datasetValue = dataset[legendValue]
                 const datasetTimeValue = datasetValue[timeValue]
                 valueLegend.push({value: parseInt(datasetTimeValue), label: legendValue})
@@ -123,20 +138,17 @@ export default class PieChartComponent extends Component {
         )
     }
 
-
     render() {
         return (
             <Modal
-                useNativeDriver={true}
                 animationType="slide"
                 transparent={true}
                 visible={this.props.modalVisible}
             >
                 <ScrollView style={styles.container}>
                     <Header title="Stats" backgroundColor="#fff"
-                            back={this.back}
-                            displayIconBack={true}
-                            nav={this.props.hideModal}/>
+                        displayIconBack={true}
+                        nav={this.props.hideModal}/>
 
                     <Text style={styles.title}>
                         Pie Chart

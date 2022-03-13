@@ -6,8 +6,22 @@ import PieChart from "./PieChart";
 import {getTypeColor} from "../utils";
 import styles from "./styles/pokemon-details";
 import {CardView, PokemonAdditionDetails, Row, StatsView} from '../components/pokemon-details';
+import { NavigationScreenProp } from 'react-navigation';
+import{Pokemon} from "../types/pokemon";
+import { RouteProp } from '@react-navigation/native';
 
-const PokemonDetails = ({navigation, route}) => {
+type ParamList = {
+    obj: {
+        pokemon: Pokemon;
+        index: string;
+    };
+};
+interface Props {
+    navigation: NavigationScreenProp<any,any>,
+    route : RouteProp<ParamList, 'obj'>,
+}
+
+const PokemonDetails : React.FC<Props>= ({navigation, route}) => {
 //get params sent from navigation
     const pokemon = route.params.pokemon;
     const index = route.params.index;
@@ -16,11 +30,11 @@ const PokemonDetails = ({navigation, route}) => {
     const backgroundColor = getTypeColor(pokemon.types[0].type.name);
 
     //display pokemon types by returning types component
-    const display_types = (pokemon) => {
-        return <Types types={pokemon.types}/>
+    const display_types = (pokemon : Pokemon) => {
+        return <Types types={pokemon.types} />
     }
     //display pokemon abilities by returning abilities component
-    const display_abilities = (pokemon) => {
+    const display_abilities = (pokemon: Pokemon) => {
         return <Abilities abilities={pokemon.abilities}/>
     }
 

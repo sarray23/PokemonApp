@@ -1,8 +1,15 @@
 import React from 'react';
 import {View, Text} from 'react-native'
 import styles from "../../containers/styles/pokemon-details";
+import {Pokemon} from "../../types/pokemon";
 
-const PokemonAdditionalDetails = (props) => {
+interface Props {
+    backgroundColor: string,
+    weight: Pokemon["weight"],
+    height: Pokemon["height"]
+}
+
+const PokemonAdditionalDetails: React.FC<Props> = (props) => {
     return (
         <View style={[styles.otherDetails, {backgroundColor: props.backgroundColor}]}>
             <View style={styles.titles}>
@@ -15,7 +22,6 @@ const PokemonAdditionalDetails = (props) => {
             </View>
         </View>
     );
-
 }
 
 export default PokemonAdditionalDetails

@@ -1,32 +1,34 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {FlatList, Text, View} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, RootStateOrAny} from 'react-redux';
 import Header from "../components/Header/header";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import {getPokemons} from '../redux/actions';
 import styles from "./styles/pokemons-style";
 import PokemonItem from "../components/pokemon-list/render-row-pokemon";
 import SplashScreen from "./splash-screen";
-import {sortList }from "../utils/sortList";
+import { check_sort }from "../utils/sortList";
+import { NavigationScreenProp } from 'react-navigation';
+import Pokemon from '../types/pokemon';
 
-let pokemonsList = []
+let pokemonsList : [] = [];
 
-const Pokemons = ({navigation}) => {
+const Pokemons = ({navigation}: { navigation: NavigationScreenProp<any, any> }) => {
     const [selectedId, setSelectedId] = useState(false);
     const [direction, setDirection] = useState("DEFAULT");
     const [displayReset, setReset] = useState(false);
     const [offset, setOffset] = useState(0);
 
-    const flatList = useRef();
+    const flatList = useRef<FlatList>(null);
 
-    const {pokemons} = useSelector(state => state.pokemonsReducer);
+    const {pokemons} = useSelector((state: RootStateOrAny) => state.pokemonsReducer);
     const dispatch = useDispatch();
     const fetchPokemons = useCallback(async () => {
         await dispatch(getPokemons(offset));
     }, [offset, dispatch]);
-    pokemonsList = pokemons.slice();
 
-    sortList(pokemonsList, direction)
+    pokemonsList = pokemons.slice();
+    check_sort(pokemonsList, direction)
 
     useEffect(() => {
         setSelectedId(true);
@@ -35,14 +37,17 @@ const Pokemons = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <Header title="POKEMON" backgroundColor = "#fff" displayIconBack={false}/>
+            <Header title="POKEMON" backgroundColor="#fff" displayIconBack={false} nav={function (): void {
+                throw new Error('Function not implemented.');
+            }}/>
             {pokemons.length > 0 ?
                 <View style={styles.filter}>
-                    <Icon size={29} color="#65ABE5" name={(direction === "DESC") ? "sort-amount-down" : "sort-amount-up"}
+                    <Icon size={29} color="#65ABE5"
+                        name={(direction === "DESC") ? "sort-amount-down" : "sort-amount-up"}
                         onPress={() => {
                             if (direction === "DESC")
-                                sort("ASC")
-                            else sort("DESC")
+                                sortList("ASC")
+                            else sortList("DESC")
                         }}
                     />{displayReset ?
                         <Text style={styles.reset} onPress={() => setDefault()}>Reset</Text> : null}
@@ -75,7 +80,7 @@ const Pokemons = ({navigation}) => {
     }
 
     function scrollToTop() {
-        flatList.current.scrollToIndex({animated: true, index: 0})
+        flatList.current?.scrollToIndex({animated: true, index: 0})
     }
 
     function setDefault() {
@@ -85,19 +90,18 @@ const Pokemons = ({navigation}) => {
         setReset(false);
     }
 
-    function sort(newDirection) {
+    function sortList (newDirection: string) {
         setReset(true);
         setDirection(newDirection);
         scrollToTop();
     }
 
-    function navigateToDetails(item, pokemon_index) {
+    function navigateToDetails(item: Pokemon, pokemon_index: string) {
         navigation.navigate("PokemonDetails", {
             pokemon: item,
             index: pokemon_index
         })
     }
-
 };
 
 export default Pokemons;

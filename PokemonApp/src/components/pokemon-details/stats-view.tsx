@@ -3,7 +3,12 @@ import {View, Text, TouchableHighlight} from 'react-native'
 import styles from "../../containers/styles/pokemon-details";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
-const StatsView = (props) => {
+interface Props {
+    displayModal: ()=>void,
+    backgroundColor: string,
+}
+
+const StatsView : React.FC<Props> = (props) => {
     return (
         <TouchableHighlight underlayColor="transparent" onPress={props.displayModal} style={[styles.statsView,
             {backgroundColor: props.backgroundColor}]}>

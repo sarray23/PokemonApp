@@ -1,4 +1,4 @@
-export const POKEMON_TYPE_COLORS = {
+export const POKEMON_TYPE_COLORS : any = {
     fairy: '#EE99AC',
     normal: '#A8A878',
     fighting: '#C03028',

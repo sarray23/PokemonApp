@@ -363,7 +363,7 @@ PODS:
     - SwiftyJSON (= 5.0)
   - RNCMaskedView (0.1.11):
     - React
-  - RNGestureHandler (2.2.0):
+  - RNGestureHandler (2.1.1):
     - React-Core
   - RNReanimated (2.4.1):
     - DoubleConversion
@@ -631,7 +631,7 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: b49b4e38a1548d03b74b30e558a1d18465b94be7
   RNCharts: d364ca2085e24edb9ee0390d3fb7209257daa44c
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
-  RNGestureHandler: bf572f552ea324acd5b5464b8d30755b2d8c1de6
+  RNGestureHandler: e1ad51d31a580755079d5124d3ab66f0fcaa8311
   RNReanimated: 32c91e28f5780937b8efc07ddde1bab8d373fe0b
   RNScreens: 2559f98b0835103cbef3b26ba77fa61d4bb37ae7
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f

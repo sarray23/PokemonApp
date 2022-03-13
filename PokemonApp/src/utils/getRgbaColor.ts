@@ -1,8 +1,8 @@
-const getRgbaColor = (type, typeColor) => {
-    let color;
+const getRgbaColor = (type: string, typeColor : string) => {
+    let color : string;
     if (type.charAt(0) !== "#") color = typeColor;
     else color = type;
-    var c;
+    let c : any;
     if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(color)) {
         c = color.substring(1).split('');
         if (c.length == 3) {

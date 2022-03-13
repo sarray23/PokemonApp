@@ -31,4 +31,4 @@
 ![Alt text](https://github.com/sarray23/PokemonApp/blob/master/PokemonApp/src/assets/Screenshot%202022-03-13%20at%2022.56.04.png)
 ![Alt text](https://github.com/sarray23/PokemonApp/blob/master/PokemonApp/src/assets/Screenshot%202022-03-13%20at%2022.56.12.png)
 ![Alt text](https://github.com/sarray23/PokemonApp/blob/master/PokemonApp/src/assets/Screenshot%202022-03-13%20at%2022.58.18.png)
-![Alt text](https://github.com/sarray23/PokemonApp/blob/master/PokemonApp/src/assets/Screenshot%202022-02-28%20at%2000.17.10.png)
+![Alt text](https://github.com/sarray23/PokemonApp/blob/master/PokemonApp/src/assets/Screenshot%202022-03-13%20at%2023.00.45.png)

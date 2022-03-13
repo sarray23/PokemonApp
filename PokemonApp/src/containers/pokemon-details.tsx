@@ -16,6 +16,7 @@ type ParamList = {
         index: string;
     };
 };
+
 interface Props {
     navigation: NavigationScreenProp<any,any>,
     route : RouteProp<ParamList, 'obj'>,

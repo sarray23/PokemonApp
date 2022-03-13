@@ -7,7 +7,6 @@ import{Pokemon} from "../../types/pokemon";
 
 interface Props {
     abilities: Pokemon["abilities"],
-
 }
 
 const Abilities: React.FC<Props> = (props) => {

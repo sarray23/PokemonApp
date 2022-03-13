@@ -13,7 +13,7 @@ import renderer from 'react-test-renderer';
 jest.mock("react-native-gesture-handler", ()=>"RNGestureHandler");
 jest.mock('react-navigation', () => {
     return {
-        createAppContainer: jest.fn().mockReturnValue(function NavigationContainer(props) {return null;}),
+        createAppContainer: jest.fn().mockReturnValue(function NavigationContainer() {return null;}),
         createDrawerNavigator: jest.fn(),
         createMaterialTopTabNavigator: jest.fn(),
         createStackNavigator: jest.fn(),

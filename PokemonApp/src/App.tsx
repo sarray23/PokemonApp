@@ -4,7 +4,6 @@ import { StatusBar } from 'react-native';
 import {store} from './redux/store';
 import RootNavigator from './navigation/RootNavigator';
 
-
 const App = () => {
     StatusBar.setHidden(true);
 

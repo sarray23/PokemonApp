@@ -8,6 +8,7 @@ interface Props {
     navigate: () => void;
     pokemonImage: Pokemon["image"],
 }
+
 const CardView: React.FC<Props> =(props) => {
     return (
         <View style={[styles.cardView, {backgroundColor: props.backgroundColor}]}>
@@ -20,7 +21,6 @@ const CardView: React.FC<Props> =(props) => {
                 style={styles.pokemonImage}/>
         </View>
     );
-
 }
 
 export default CardView

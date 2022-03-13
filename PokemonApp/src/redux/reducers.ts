@@ -1,5 +1,4 @@
 import {GET_POKEMONS} from './actions';
-
 const initialState = {
     pokemons: [],
     offset: 0

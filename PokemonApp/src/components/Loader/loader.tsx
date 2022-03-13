@@ -13,7 +13,6 @@ const Loader: React.FC<Props> = ({name, color}) => {
             size={50}
             color={color}
         />
-
     );
 
 }

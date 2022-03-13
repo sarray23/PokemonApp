@@ -79,7 +79,7 @@ export default StyleSheet.create({
 
     subtitle: {
         color: "#000",
-        fontWeight: "normal",
+        fontWeight: "bold",
         fontSize: 14,
         paddingTop: 20,
     },
@@ -88,8 +88,6 @@ export default StyleSheet.create({
         color: "#000",
         fontSize: 14,
         paddingTop: 20,
-      //  paddingLeft: 20,
-       // paddingRight: 40
     },
 
     backView: {

@@ -6,7 +6,6 @@ import PokemonDetails from '../containers/pokemon-details';
 
 const Stack = createStackNavigator();
 
-
 const RootNavigator = () => {
     return (
         <NavigationContainer>
@@ -15,9 +14,8 @@ const RootNavigator = () => {
                     headerShown: false
                 }}
                 initialRouteName= "Pokemons">
-                <Stack.Screen name="Pokemons " component={Pokemons } />
+                <Stack.Screen name="Pokemons " component={ Pokemons } />
                 <Stack.Screen name="PokemonDetails" component={PokemonDetails}/>
-
             </Stack.Navigator>
         </NavigationContainer>
     );
